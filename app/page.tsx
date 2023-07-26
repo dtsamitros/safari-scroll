@@ -8,19 +8,26 @@ const PAGE = 30
 export default function Home() {
     const [count, setCount] = useState(PAGE)
     const [loading, setLoading] = useState(false)
-    const messages = useMemo(() => {
-        return MESSAGES.slice(0, count)
-    }, [count])
+    const [messages, setMessages] = useState<string[]>([])
 
     const onIntersection = (inView: boolean) => {
-        setLoading(true)
-        if (inView) {
-            setTimeout(() => {
-                setCount((count) => Math.min(count + 30, MESSAGES.length))
-                setLoading(false)
-            }, 3000)
+        if (inView && !loading) {
+            setCount((count) => Math.min(count + 30, MESSAGES.length))
         }
     }
+
+    useEffect(() => {
+        if (loading || messages.length === count) {
+            return
+        }
+
+        setLoading(true)
+        setTimeout(() => {
+            setMessages(MESSAGES.slice(0, count))
+            console.log('setting loading to false')
+            setLoading(false)
+        }, 3000)
+    }, [count, loading, messages.length])
 
     return (
         <>
