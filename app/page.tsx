@@ -18,7 +18,7 @@ export default function Home() {
             setTimeout(() => {
                 setCount((count) => Math.min(count + 30, MESSAGES.length))
                 setLoading(false)
-            }, 500)
+            }, 3000)
         }
     }
 
