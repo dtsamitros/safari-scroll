@@ -1,5 +1,5 @@
 'use client'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { InView } from 'react-intersection-observer'
 
 const MESSAGES = Array(200).fill(0).map((k, i) => `Message ${i + 1}`).reverse()
@@ -36,7 +36,7 @@ export default function Home() {
                 <div className="main-container">
                     {messages.map((message, i) => <p key={i}>{message}</p>)}
                     {count < MESSAGES.length ? (
-                        <InView as="div" onChange={onIntersection} />
+                        <InView as="div" onChange={onIntersection}/>
                     ) : (
                         <p>All done</p>
                     )}
